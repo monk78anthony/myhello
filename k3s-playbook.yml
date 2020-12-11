@@ -3,12 +3,14 @@
   - name: Deploy the service
     k8s:
       state: present
+      kubeconfig: ~/.kube/config.json
       definition: ""
       validate_certs: no
       namespace: default
   - name: Deploy the application
     k8s:
       state: present
+      kubeconfig: ~/.kube/config.json
       validate_certs: no
       namespace: default
       definition: ""
