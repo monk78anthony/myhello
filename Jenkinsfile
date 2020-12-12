@@ -56,7 +56,7 @@ pipeline {
        stage ('Deploy') {
            steps {
                withKubeConfig([credentialsId: 'kubeconfig']) {
-                   sh '/usr/local/bin/kubectl get all -A'
+                   sh '/usr/local/binkubectl apply -f /usr/local/bin/service.yaml'
                }
            }
        }
