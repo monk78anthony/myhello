@@ -53,6 +53,11 @@ pipeline {
                }
            }
        }
+       stage('Docker Remove Image') {
+         steps {
+           sh "docker rmi monk78anthony/myhello:${env.BUILD_NUMBER}"
+         }
+       }
        stage ('Deploy') {
            steps {
                withKubeConfig([credentialsId: 'kubeconfig']) {
