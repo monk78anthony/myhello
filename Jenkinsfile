@@ -62,7 +62,7 @@ pipeline {
            steps {
                withKubeConfig([credentialsId: 'kubeconfig']) {
                    sh '/usr/local/bin/kubectl apply -f /usr/local/bin/service.yaml'
-                   sh '/usr/local/bin/kubectl apply -f /usr/local/bin/deployment.yaml'
+                   sh 'cat /usr/local/bin/deployment.yaml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | /usr/local/bin/kubectl apply -f -'
                }
            }
        }
