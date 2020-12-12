@@ -5,7 +5,7 @@ pipeline {
        GOCACHE = "/tmp"
    }
    stages {
-       stage('Build') {
+       stage('Build the Go binaries on a Container') {
            agent {
                docker {
                    image 'golang'
@@ -21,7 +21,7 @@ pipeline {
                sh 'go build'
            }
        }
-       stage('Test') {
+       stage('Test the Go binaries on a Container') {
            agent {
                docker {
                    image 'golang'
@@ -53,7 +53,7 @@ pipeline {
                }
            }
        }
-       stage('Publish') {
+       stage('Publish the image to Docker Registry') {
            environment {
                registryCredential = 'dockerhub'
            }
@@ -67,12 +67,12 @@ pipeline {
                }
            }
        }
-       stage('Docker Remove Image') {
+       stage('Docker Remove Image Locally') {
          steps {
            sh "docker rmi monk78anthony/myhello:${env.BUILD_NUMBER}"
          }
        }
-       stage ('Deploy') {
+       stage ('Deploy and Expose on Kubernetes') {
            steps {
                withKubeConfig([credentialsId: 'kubeconfig']) {
                    sh '/usr/local/bin/kubectl delete deploy hello-deployment'
