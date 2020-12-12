@@ -56,7 +56,6 @@ pipeline {
        stage ('Deploy') {
            steps {
                withKubeConfig([credentialsId: 'kubeconfig']) {
-                   def image_id = registry + ":$BUILD_NUMBER"
                    sh 'kubectl get all -A'
                }
            }
