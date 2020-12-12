@@ -56,8 +56,8 @@ pipeline {
        stage ('Deploy') {
            steps {
                script{
-                   def image_id = registry + ":$BUILD_NUMBER"
-                   sh "ansible-playbook  k3s-playbook.yml --extra-vars \"image_id=${image_id}\""
+                   withKubeConfig([credentialsId: 'kubeconfig']) {
+                   sh 'kubectl config view'
                }
            }
        }
