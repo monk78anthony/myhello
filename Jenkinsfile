@@ -39,6 +39,20 @@ pipeline {
                sh 'go test ./*_test.go -v -short'
            }
        }
+       stage('Code Quality Check via SonarQube') {
+       steps {
+           script {
+           def scannerHome = tool 'sonarqube';
+               withSonarQubeEnv('sonar') {
+               sh "${tool("sonarqube")}/bin/sonar-scanner \
+               -Dsonar.projectKey=myhello \
+               -Dsonar.sources=. \
+               -Dsonar.host.url=http://3.238.135.249:9000 \
+               -Dsonar.login=3e2f31c0a709529ea6a86c4ae977a052b5a3fa38
+                   }
+               }
+           }
+       }
        stage('Publish') {
            environment {
                registryCredential = 'dockerhub'
@@ -61,6 +75,7 @@ pipeline {
        stage ('Deploy') {
            steps {
                withKubeConfig([credentialsId: 'kubeconfig']) {
+                   sh '/usr/local/bin/kubectl delete deploy hello-deployment'
                    sh '/usr/local/bin/kubectl apply -f /usr/local/bin/service.yaml'
                    sh 'cat /usr/local/bin/deployment.yaml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | /usr/local/bin/kubectl apply -f -'
                }
