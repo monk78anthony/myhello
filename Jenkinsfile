@@ -74,7 +74,8 @@ pipeline {
        }
        stage ('Deploy and Expose on Kubernetes') {
            steps {
-               withKubeConfig([credentialsId: 'kubeconfig']) {  
+               withKubeConfig([credentialsId: 'kubeconfig']) {
+                   sh '/usr/local/bin/kubectl delete deploy hello-deployment'  
                    sh '/usr/local/bin/kubectl apply -f /usr/local/bin/service.yml'
                    sh 'cat /usr/local/bin/deployment.yml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | /usr/local/bin/kubectl apply -f -'
                }
@@ -82,7 +83,7 @@ pipeline {
        }
        stage('ArgoCD Update'){
          steps{
-           sh 'cat /home/ec2-user/myhello/argocd/deployment.yml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g"'
+           sh 'vi /home/ec2-user/myhello/argocd/deployment.yml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g"'
          }
       }  
    }
