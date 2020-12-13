@@ -83,7 +83,7 @@ pipeline {
        }
        stage('ArgoCD Update'){
          steps{
-           sh 'sed -i "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" /home/ec2-user/myhello/argocd/deployment.yml'
+           sh 'sed -i.bak "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" /home/ec2-user/myhello/argocd/deployment.yml'
          }
       }  
    }
