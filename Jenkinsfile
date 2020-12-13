@@ -87,6 +87,14 @@ pipeline {
            sh 'cp /usr/local/bin/deployment.yml -rf /home/ec2-user/myhello/argocd/'
            sh 'sed -i.bak "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" /home/ec2-user/myhello/argocd/deployment.yml'
          }
-      }  
-   }
-}
+      }
+       stage('Git Push'){
+           steps {
+               withCredentials([usernamePassword(credentialsId: 'github-monk78anthony', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                   sh("git tag -a some_tag -m 'Jenkins'")
+                   sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/monk78anthony/myhello --tags')
+               }  
+           }    
+       }
+    }
+}   
