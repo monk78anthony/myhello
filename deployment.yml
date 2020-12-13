@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: ""
+        image: monk78anthony/myhello:{{BUILD_NUMBER}}
         resources:
           requests:
             cpu: 10m
