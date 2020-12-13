@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: monk78anthony/myhello:51
+        image: monk78anthony/myhello:71
         resources:
           requests:
             cpu: 10m
