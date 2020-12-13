@@ -91,7 +91,7 @@ pipeline {
        stage('Git Push'){
            steps {
                withCredentials([usernamePassword(credentialsId: 'github-monk78anthony', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                   sh('git add /home/ec2-user/myhello/argocd/deployment.yml')
+                   sh('git add .')
                    sh('git commit -m "Completing commit"')
                    sh("git tag -a New Commit -m 'From Jenkins'")
                    sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/monk78anthony/myhello --tags')
