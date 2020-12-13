@@ -47,7 +47,7 @@ pipeline {
                sh "${tool("sonarqube-scanner")}/bin/sonar-scanner \
                -Dsonar.projectKey=myhello \
                -Dsonar.sources=. \
-               -Dsonar.host.url=http://3.238.135.249:9000 \
+               -Dsonar.host.url=http://34.204.185.219:9000 \
                -Dsonar.login=3e2f31c0a709529ea6a86c4ae977a052b5a3fa38"
                    }
                }
