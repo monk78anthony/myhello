@@ -76,8 +76,8 @@ pipeline {
            steps {
                withKubeConfig([credentialsId: 'kubeconfig']) {
                    sh '/usr/local/bin/kubectl delete deploy hello-deployment'
-                   sh '/usr/local/bin/kubectl apply -f /usr/local/bin/service.yaml'
-                   sh 'cat /usr/local/bin/deployment.yaml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | /usr/local/bin/kubectl apply -f -'
+                   sh '/usr/local/bin/kubectl apply -f /usr/local/bin/service.yml'
+                   sh 'cat /usr/local/bin/deployment.yml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | /usr/local/bin/kubectl apply -f -'
                    sh 'cp /usr/local/bin/deployment.yml /home/ec2-user/argocd/deployment.yml'
                    sh 'git add .'
                    sh 'git commit -m "argocd push"'
