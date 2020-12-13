@@ -78,21 +78,8 @@ pipeline {
                    sh '/usr/local/bin/kubectl delete deploy hello-deployment'
                    sh '/usr/local/bin/kubectl apply -f /usr/local/bin/service.yml'
                    sh 'cat /usr/local/bin/deployment.yml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | /usr/local/bin/kubectl apply -f -'
-                   sh 'cp /usr/local/bin/deployment.yml /home/ec2-user/myhello/argocd/deployment.yml'
                }
            }
-       }
-       stage('Git Push'){
-           steps{
-             script{
-                 GIT_CREDS = credentials(github-monk78anthony)
-                 sh '''
-                     git add .
-                     git commit -m "push to git"
-                     git push https://${GIT_CREDS_USR}:${GIT_CREDS_PSW}@github.com/monk78anthony/myhello.git master
-                 '''
-             }
-         }
-      }   
+       }  
    }
 }
