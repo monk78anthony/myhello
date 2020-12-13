@@ -2,5 +2,5 @@ projectKey=myhello
 serverUrl=http://34.204.185.219:9000
 serverVersion=8.4.1.35646
 dashboardUrl=http://34.204.185.219:9000/dashboard?id=myhello
-ceTaskId=AXZdeNRDTSewKMLB7z-i
-ceTaskUrl=http://34.204.185.219:9000/api/ce/task?id=AXZdeNRDTSewKMLB7z-i
+ceTaskId=AXZdeXFuTSewKMLB7z-j
+ceTaskUrl=http://34.204.185.219:9000/api/ce/task?id=AXZdeXFuTSewKMLB7z-j
