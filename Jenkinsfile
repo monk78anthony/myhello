@@ -75,6 +75,7 @@ pipeline {
        stage ('Deploy and Expose on Kubernetes') {
            steps {
                withKubeConfig([credentialsId: 'kubeconfig']) {
+                   sh '/usr/local/bin/kubectl delete deploy hello-deployment'
                    sh '/usr/local/bin/kubectl apply -f /usr/local/bin/service.yml'
                    sh 'cat /usr/local/bin/deployment.yml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | /usr/local/bin/kubectl apply -f -'
                }
@@ -85,6 +86,11 @@ pipeline {
            sh 'rm /home/ec2-user/argocd/argocd/*.bak'
            sh 'cp /usr/local/bin/deployment.yml -rf /home/ec2-user/argocd/argocd/'
            sh 'sed -i.bak "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" /home/ec2-user/argocd/argocd/deployment.yml'
+         }
+       }
+       stage('Publish artifacts to S3'){
+         steps{
+           sh 'aws s3 cp /home/ec2-user/myhello s3://myhello-ant/ --recursive --exclude "*" --include "*.go"'
          }
       }
    }
