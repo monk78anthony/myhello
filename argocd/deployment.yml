@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: app
-        image: monk78anthony/myhello:71
+        image: monk78anthony/myhello:77
+        imagePullPolicy: Always
         resources:
           requests:
             cpu: 10m

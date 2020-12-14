@@ -83,9 +83,9 @@ pipeline {
        }
        stage('ArgoCD Update'){
          steps{
-           sh 'rm /home/ec2-user/myhello/argocd/*.bak'
-           sh 'cp /usr/local/bin/deployment.yml -rf /home/ec2-user/myhello/argocd/'
-           sh 'sed -i.bak "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" /home/ec2-user/myhello/argocd/deployment.yml'
+           sh 'rm /home/ec2-user/argocd/argocd/*.bak'
+           sh 'cp /usr/local/bin/deployment.yml -rf /home/ec2-user/argocd/argocd/'
+           sh 'sed -i.bak "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" /home/ec2-user/argocd/argocd/deployment.yml'
          }
       }
    }
