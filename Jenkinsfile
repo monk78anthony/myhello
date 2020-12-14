@@ -79,7 +79,6 @@ pipeline {
                    sh '/usr/local/bin/kubectl set image deploy/hello-deployment app=monk78anthony/my-hello:$BUILD_NUMBER'
                }
            }
-       }
        stage('ArgoCD Update'){
          steps{
            sh 'rm /home/ec2-user/argocd/argocd/*.bak'
