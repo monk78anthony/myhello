@@ -74,7 +74,7 @@ pipeline {
        }
        stage ('Deploy and Expose on Kubernetes') {
            steps {
-               withKubeConfig([credentialsId: 'kubeconfig']) 
+               withKubeConfig([credentialsId: 'kubeconfig']) {
                    sh '/usr/local/bin/kubectl apply -f /usr/local/bin/service.yml'
                    sh '/usr/local/bin/kubectl set image deploy/hello-deployment app=monk78anthony/my-hello:$BUILD_NUMBER'
                }
