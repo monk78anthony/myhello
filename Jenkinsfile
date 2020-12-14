@@ -75,7 +75,6 @@ pipeline {
        stage ('Deploy and Expose on Kubernetes') {
            steps {
                withKubeConfig([credentialsId: 'kubeconfig']) {
-                   sh '/usr/local/bin/kubectl delete deploy hello-deployment'  
                    sh '/usr/local/bin/kubectl apply -f /usr/local/bin/service.yml'
                    sh 'cat /usr/local/bin/deployment.yml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | /usr/local/bin/kubectl apply -f -'
                }
